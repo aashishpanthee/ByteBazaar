@@ -1,13 +1,13 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { Navbar, Nav, Container, Badge, NavDropdown } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-import { FaShoppingCart, FaUser } from "react-icons/fa";
-import logo from "../assets/logo.png";
-import { useLogoutMutation } from "../slices/usersApiSlice";
-import { logout } from "../slices/authSlice";
-import { toast } from "react-toastify";
+import React from 'react';
+import { Badge, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { FaShoppingCart, FaUser } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import logo from '../assets/logo.png';
+import { logout } from '../slices/authSlice';
+import { useLogoutMutation } from '../slices/usersApiSlice';
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -21,7 +21,7 @@ const Header = () => {
     try {
       await logoutApiCall().unwrap();
       dispatch(logout());
-      navigate("/login");
+      navigate('/login');
     } catch (error) {
       toast.error(error?.data?.message || error?.error);
     }
@@ -33,8 +33,8 @@ const Header = () => {
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand>
-              <img src={logo} alt='Proshop' />
-              Proshop
+              <img src={logo} alt='Byte Bazaar' />
+              Byte Bazaar
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
@@ -44,7 +44,7 @@ const Header = () => {
                 <Nav.Link>
                   <FaShoppingCart />
                   {cartItems.length > 0 && (
-                    <Badge pill bg='success' style={{ marginLeft: "5px" }}>
+                    <Badge pill bg='success' style={{ marginLeft: '5px' }}>
                       {cartItems.reduce((acc, item) => acc + item.qty, 0)}
                     </Badge>
                   )}
@@ -56,9 +56,7 @@ const Header = () => {
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                 </NavDropdown>
               ) : (
                 <LinkContainer to='/login'>
