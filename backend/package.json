@@ -1,27 +1,27 @@
 {
-  "name": "proshop",
+  "name": "ByteBazaar-backend",
   "version": "1.0.0",
-  "description": "ecommerce application built with MERN stack",
+  "description": "Ecommerce application built with MERN stack",
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "node backend/server.js",
-    "server": "nodemon backend/server.js",
+    "start": "node server.js",
+    "server": "nodemon server.js",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "data:import": "node backend/seeder.js ",
-    "data:destroy": "node backend/seeder.js -d"
+    "data:import": "node seeder.js ",
+    "data:destroy": "node seeder.js -d"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aashishpanthee/Proshop.git"
+    "url": "git+https://github.com/aashishpanthee/ByteBazaar.git"
   },
   "author": "Aashish Panthee",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/aashishpanthee/Proshop/issues"
+    "url": "https://github.com/aashishpanthee/ByteBazaar/issues"
   },
-  "homepage": "https://github.com/aashishpanthee/Proshop#readme",
+  "homepage": "https://github.com/aashishpanthee/ByteBazaar#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
