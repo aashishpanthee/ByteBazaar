@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { Table, Form, Button, Row, Col } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import { FaTimes, FaCheck } from "react-icons/fa";
-import { useProfileMutation } from "../slices/usersApiSlice";
-import { setCredentials } from "../slices/authSlice";
-import { useGetMyOrdersQuery } from "../slices/ordersApiSlice";
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Form, Row, Table } from 'react-bootstrap';
+import { FaCheck, FaTimes } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
+import { toast } from 'react-toastify';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
+import { setCredentials } from '../slices/authSlice';
+import { useGetMyOrdersQuery } from '../slices/ordersApiSlice';
+import { useProfileMutation } from '../slices/usersApiSlice';
 
 const ProfileScreen = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
 
-  const [updateProfile, { isLoading: loadingUpdateProfile }] =
-    useProfileMutation();
+  const [updateProfile, { isLoading: loadingUpdateProfile }] = useProfileMutation();
 
   const { data: orders, isLoading, error } = useGetMyOrdersQuery();
   useEffect(() => {
@@ -32,7 +31,7 @@ const ProfileScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      toast.error("Password do not match");
+      toast.error('Password do not match');
     } else {
       try {
         const res = await updateProfile({
@@ -42,113 +41,138 @@ const ProfileScreen = () => {
           password,
         }).unwrap();
         dispatch(setCredentials(res));
-        toast.success("Profile updated successfully");
+        toast.success('Profile updated successfully');
       } catch (error) {
         toast.error(error?.data?.message || error.error);
       }
     }
   };
   return (
-    <Row>
-      <Col md={3}>
-        <h2>User Profile</h2>
-        <Form onSubmit={submitHandler}>
-          <Form.Group controlId='name' className='my-2'>
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              type='name'
-              placeholder='Enter name'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
-          <Form.Group controlId='email' className='my-2'>
-            <Form.Label>Email Address</Form.Label>
-            <Form.Control
-              type='email'
-              placeholder='Enter email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
-          <Form.Group controlId='password' className='my-2'>
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type='password'
-              placeholder='Enter password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
-          <Form.Group controlId='confirmpassword' className='my-2'>
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control
-              type='password'
-              placeholder='Confirm password'
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
-          <Button type='submit' variant='primary' className='my-2'>
-            Update
-          </Button>
-          {loadingUpdateProfile && <Loader />}
-        </Form>
-      </Col>
-      <Col md={9}>
-        <h2>My Orders</h2>
-        {isLoading ? (
-          <Loader />
-        ) : error ? (
-          <Message variant='danger'>
-            {error?.data?.message || error.error}
-          </Message>
-        ) : (
-          <Table striped hover responsive className='table-sm'>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>DATE</th>
-                <th>TOTAL</th>
-                <th>PAID</th>
-                <th>DELIVERED</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order._id}>
-                  <td>{order._id}</td>
-                  <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>{order.totalPrice}</td>
-                  <td>
-                    {order.isPaid ? (
-                      order.paidAt.substring(0, 10)
-                    ) : (
-                      <FaTimes style={{ color: "red" }} />
-                    )}
-                  </td>
-                  <td>
-                    {order.isDelivered ? (
-                      order.deliveredAt.substring(0, 10)
-                    ) : (
-                      <FaTimes style={{ color: "red" }} />
-                    )}
-                  </td>
-                  <td>
-                    <LinkContainer to={`/order/${order._id}`}>
-                      <Button className='btn-sm' variant='light'>
-                        Details
-                      </Button>
-                    </LinkContainer>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        )}
-      </Col>
-    </Row>
+    <div className='profile-screen'>
+      <Row className='profile-container'>
+        <Col md={3} className='profile-col-left'>
+          <div className='profile-card'>
+            <div className='profile-card-header'>
+              <h2 className='profile-title'>Profile Settings</h2>
+            </div>
+            <Form onSubmit={submitHandler} className='profile-form'>
+              <Form.Group controlId='name' className='form-group-custom'>
+                <Form.Label className='form-label'>Full Name</Form.Label>
+                <Form.Control
+                  type='name'
+                  placeholder='Enter name'
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className='form-control-custom'
+                />
+              </Form.Group>
+              <Form.Group controlId='email' className='form-group-custom'>
+                <Form.Label className='form-label'>Email Address</Form.Label>
+                <Form.Control
+                  type='email'
+                  placeholder='Enter email'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className='form-control-custom'
+                />
+              </Form.Group>
+              <Form.Group controlId='password' className='form-group-custom'>
+                <Form.Label className='form-label'>Password</Form.Label>
+                <Form.Control
+                  type='password'
+                  placeholder='Enter password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className='form-control-custom'
+                />
+              </Form.Group>
+              <Form.Group controlId='confirmpassword' className='form-group-custom'>
+                <Form.Label className='form-label'>Confirm Password</Form.Label>
+                <Form.Control
+                  type='password'
+                  placeholder='Confirm password'
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className='form-control-custom'
+                />
+              </Form.Group>
+              <Button type='submit' className='profile-update-button' disabled={loadingUpdateProfile}>
+                {loadingUpdateProfile ? 'Updating...' : 'Update Profile'}
+              </Button>
+              {loadingUpdateProfile && <Loader />}
+            </Form>
+          </div>
+        </Col>
+        <Col md={9} className='profile-col-right'>
+          <div className='orders-card'>
+            <div className='orders-card-header'>
+              <h2 className='orders-title'>Order History</h2>
+              <p className='orders-subtitle'>{orders?.length || 0} orders</p>
+            </div>
+            {isLoading ? (
+              <Loader />
+            ) : error ? (
+              <Message variant='danger'>{error?.data?.message || error.error}</Message>
+            ) : orders && orders.length > 0 ? (
+              <div className='orders-table-wrapper'>
+                <Table striped hover responsive className='orders-table'>
+                  <thead>
+                    <tr className='table-header'>
+                      <th>Order ID</th>
+                      <th>Date</th>
+                      <th>Total</th>
+                      <th>Payment</th>
+                      <th>Delivery</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map((order) => (
+                      <tr key={order._id} className='order-row'>
+                        <td className='order-id'>{order._id.substring(0, 8)}...</td>
+                        <td className='order-date'>{order.createdAt.substring(0, 10)}</td>
+                        <td className='order-price'>${order.totalPrice}</td>
+                        <td className='order-status'>
+                          {order.isPaid ? (
+                            <span className='badge-success'>
+                              <FaCheck /> {order.paidAt.substring(0, 10)}
+                            </span>
+                          ) : (
+                            <span className='badge-danger'>
+                              <FaTimes /> Pending
+                            </span>
+                          )}
+                        </td>
+                        <td className='order-status'>
+                          {order.isDelivered ? (
+                            <span className='badge-success'>
+                              <FaCheck /> {order.deliveredAt.substring(0, 10)}
+                            </span>
+                          ) : (
+                            <span className='badge-danger'>
+                              <FaTimes /> Not Delivered
+                            </span>
+                          )}
+                        </td>
+                        <td className='order-action'>
+                          <LinkContainer to={`/order/${order._id}`}>
+                            <Button className='order-details-btn'>Details</Button>
+                          </LinkContainer>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </div>
+            ) : (
+              <div className='empty-orders'>
+                <p className='empty-orders-text'>No orders yet. Start shopping now!</p>
+              </div>
+            )}
+          </div>
+        </Col>
+      </Row>
+    </div>
   );
 };
 

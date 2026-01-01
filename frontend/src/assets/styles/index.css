@@ -2032,3 +2032,352 @@ table th {
     font-size: 0.9rem;
   }
 }
+
+/* ============ PROFILE SCREEN STYLES ============ */
+.profile-screen {
+  padding: 2rem 0;
+  min-height: 80vh;
+}
+
+.profile-container {
+  gap: 2rem;
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.profile-col-left {
+  flex: 0 0 calc(25% - 1rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-col-right {
+  flex: 0 0 calc(75% - 1rem);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Profile Card - Left Column */
+.profile-card {
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  position: sticky;
+  top: 100px;
+}
+
+.profile-card-header {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  padding: 1.5rem;
+  color: var(--white);
+}
+
+.profile-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.profile-form {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profile-update-button {
+  padding: 0.875rem;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  border: none;
+  border-radius: 10px;
+  color: var(--white);
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.profile-update-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.profile-update-button:disabled {
+  background: linear-gradient(135deg, #9ca3af, #6b7280);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Orders Card - Right Column */
+.orders-card {
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.orders-card-header {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  padding: 1.5rem;
+  color: var(--white);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.orders-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.orders-subtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+.orders-table-wrapper {
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+.orders-table {
+  margin: 0;
+}
+
+.orders-table thead {
+  background: var(--background);
+}
+
+.table-header th {
+  padding: 1rem !important;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  border: none !important;
+  background: var(--background);
+}
+
+.order-row {
+  border-bottom: 1px solid var(--border-color) !important;
+  transition: var(--transition);
+}
+
+.order-row:hover {
+  background: var(--background) !important;
+}
+
+.order-row td {
+  padding: 1rem !important;
+  vertical-align: middle;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+.order-id {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.order-date {
+  color: var(--text-light);
+  font-weight: 400;
+}
+
+.order-price {
+  font-weight: 700;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+.order-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-success {
+  background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.badge-danger {
+  background: linear-gradient(135deg, #fca5a5, #ef4444);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.order-action {
+  text-align: center;
+}
+
+.order-details-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  border: none;
+  border-radius: 8px;
+  color: var(--white);
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.order-details-btn:hover {
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* Empty Orders State */
+.empty-orders {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.empty-orders-text {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Responsive Profile */
+@media (max-width: 992px) {
+  .profile-card {
+    position: static;
+  }
+
+  .profile-col-left {
+    flex: 0 0 calc(30% - 1rem);
+  }
+
+  .profile-col-right {
+    flex: 0 0 calc(70% - 1rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-screen {
+    padding: 1rem 0;
+  }
+
+  .profile-container {
+    gap: 1.5rem;
+    flex-direction: column;
+  }
+
+  .profile-col-left,
+  .profile-col-right {
+    flex: 0 0 100%;
+  }
+
+  .profile-card-header,
+  .orders-card-header {
+    padding: 1.25rem;
+  }
+
+  .profile-title,
+  .orders-title {
+    font-size: 1.25rem;
+  }
+
+  .profile-form {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .form-control-custom {
+    font-size: 0.95rem;
+  }
+
+  .orders-table-wrapper {
+    padding: 1rem;
+  }
+
+  .table-header th {
+    padding: 0.75rem !important;
+    font-size: 0.75rem;
+  }
+
+  .order-row td {
+    padding: 0.75rem !important;
+    font-size: 0.9rem;
+  }
+
+  .order-details-btn {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .profile-col-left,
+  .profile-col-right {
+    width: 100%;
+  }
+
+  .profile-form {
+    padding: 1.25rem;
+  }
+
+  .orders-table-wrapper {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .order-id {
+    font-size: 0.75rem;
+  }
+
+  .order-status {
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 0.75rem;
+  }
+
+  .badge-success,
+  .badge-danger {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .table-header th {
+    font-size: 0.7rem;
+  }
+
+  .order-row td {
+    padding: 0.5rem !important;
+    font-size: 0.8rem;
+  }
+}
