@@ -28,54 +28,60 @@ const Header = () => {
   };
 
   return (
-    <header>
-      <Navbar bg='dark' variant='dark' expand='md' collapseOnSelect>
+    <header className='header-wrapper'>
+      <Navbar expand='md' collapseOnSelect className='modern-navbar'>
         <Container>
           <LinkContainer to='/'>
-            <Navbar.Brand>
-              <img src={logo} alt='Byte Bazaar' />
-              Byte Bazaar
+            <Navbar.Brand className='brand-logo'>
+              <img src={logo} alt='Byte Bazaar' className='logo-img' />
+              <span className='brand-text'>Byte Bazaar</span>
             </Navbar.Brand>
           </LinkContainer>
-          <Navbar.Toggle aria-controls='basic-navbar-nav' />
+          <Navbar.Toggle aria-controls='basic-navbar-nav' className='custom-toggler' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='ms-auto'>
+            <Nav className='ms-auto align-items-center'>
               <LinkContainer to='/cart'>
-                <Nav.Link>
-                  <FaShoppingCart />
-                  {cartItems.length > 0 && (
-                    <Badge pill bg='success' style={{ marginLeft: '5px' }}>
-                      {cartItems.reduce((acc, item) => acc + item.qty, 0)}
-                    </Badge>
-                  )}
-                  Cart
+                <Nav.Link className='nav-link-custom'>
+                  <div className='nav-item-wrapper'>
+                    <FaShoppingCart className='nav-icon' />
+                    <span className='nav-text'>Cart</span>
+                    {cartItems.length > 0 && (
+                      <Badge pill className='cart-badge'>
+                        {cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                      </Badge>
+                    )}
+                  </div>
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
-                <NavDropdown title={userInfo.name} id='username'>
+                <NavDropdown title={userInfo.name} id='username' className='user-dropdown'>
                   <LinkContainer to='/profile'>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                    <NavDropdown.Item className='dropdown-item-custom'>Profile</NavDropdown.Item>
                   </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
+                  <NavDropdown.Item onClick={logoutHandler} className='dropdown-item-custom'>
+                    Logout
+                  </NavDropdown.Item>
                 </NavDropdown>
               ) : (
                 <LinkContainer to='/login'>
-                  <Nav.Link>
-                    <FaUser />
-                    Sign In
+                  <Nav.Link className='nav-link-custom sign-in-link'>
+                    <div className='nav-item-wrapper'>
+                      <FaUser className='nav-icon' />
+                      <span className='nav-text'>Sign In</span>
+                    </div>
                   </Nav.Link>
                 </LinkContainer>
               )}
               {userInfo && userInfo.isAdmin && (
-                <NavDropdown title='Admin' id='adminmenu'>
+                <NavDropdown title='Admin' id='adminmenu' className='admin-dropdown'>
                   <LinkContainer to='/admin/productlist'>
-                    <NavDropdown.Item>Products</NavDropdown.Item>
+                    <NavDropdown.Item className='dropdown-item-custom'>Products</NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer to='/admin/userlist'>
-                    <NavDropdown.Item>Users</NavDropdown.Item>
+                    <NavDropdown.Item className='dropdown-item-custom'>Users</NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer to='/admin/orderlist'>
-                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                    <NavDropdown.Item className='dropdown-item-custom'>Orders</NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
               )}
