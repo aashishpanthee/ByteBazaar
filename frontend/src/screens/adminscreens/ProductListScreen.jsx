@@ -1,24 +1,20 @@
-import React from "react";
-import { LinkContainer } from "react-router-bootstrap";
-import { Table, Button, Row, Col } from "react-bootstrap";
-import { FaTimes, FaEdit, FaTrash } from "react-icons/fa";
-import { toast } from "react-toastify";
-import Message from "../../components/Message";
-import Loader from "../../components/Loader";
-import {
-  useGetProductsQuery,
-  useCreateProductMutation,
-} from "../../slices/productsApiSlice";
+import React from 'react';
+import { Button, Col, Row, Table } from 'react-bootstrap';
+import { FaEdit, FaTimes, FaTrash } from 'react-icons/fa';
+import { LinkContainer } from 'react-router-bootstrap';
+import { toast } from 'react-toastify';
+import Loader from '../../components/Loader';
+import Message from '../../components/Message';
+import { useCreateProductMutation, useGetProductsQuery } from '../../slices/productsApiSlice';
 
 const ProductListScreen = () => {
   const { data: products, isLoading, error, refetch } = useGetProductsQuery();
-  const [createProduct, { isLoading: loadingCreate }] =
-    useCreateProductMutation();
+  const [createProduct, { isLoading: loadingCreate }] = useCreateProductMutation();
   const deleteHandler = (productid) => {
     console.log(productid);
   };
   const createProductHandler = async () => {
-    if (window.confirm("Are you sure you want to create a new product")) {
+    if (window.confirm('Are you sure you want to create a new product')) {
       try {
         await createProduct();
         refetch();
@@ -28,15 +24,15 @@ const ProductListScreen = () => {
     }
   };
   return (
-    <>
-      <Row className='align-items-center'>
+    <div className='admin-screen'>
+      <Row className='admin-header align-items-center'>
         <Col>
-          <h1>Products</h1>
+          <h1 className='admin-title'>Products Management</h1>
+          <p className='admin-subtitle'>Manage all your products and inventory</p>
         </Col>
         <Col className='text-end'>
-          <Button className='btn-sm-3' onClick={createProductHandler}>
-            <FaEdit />
-            Create Product
+          <Button className='btn-create-product' onClick={createProductHandler}>
+            <FaEdit /> Create Product
           </Button>
         </Col>
       </Row>
@@ -46,47 +42,43 @@ const ProductListScreen = () => {
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
-        <>
-          <Table striped hover responsive className='table-sm'>
+        <div className='admin-table-card'>
+          <Table striped hover responsive className='admin-table'>
             <thead>
-              <tr>
+              <tr className='table-header-admin'>
                 <th>ID</th>
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
-                <th></th>
+                <th>ACTIONS</th>
               </tr>
             </thead>
             <tbody>
               {products.map((product) => (
-                <tr key={product._id}>
-                  <td>{product._id}</td>
-                  <td>{product.name}</td>
-                  <td>{product.price}</td>
-                  <td>{product.category}</td>
-                  <td>{product.brand}</td>
-                  <td>
+                <tr key={product._id} className='admin-table-row'>
+                  <td className='product-id'>{product._id.substring(0, 8)}...</td>
+                  <td className='product-name'>{product.name}</td>
+                  <td className='product-price'>${product.price}</td>
+                  <td className='product-category'>{product.category}</td>
+                  <td className='product-brand'>{product.brand}</td>
+                  <td className='product-actions'>
                     <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                      <Button variant='light' className='btn-sm mx-2'>
-                        <FaEdit />
+                      <Button className='btn-edit'>
+                        <FaEdit /> Edit
                       </Button>
                     </LinkContainer>
-                    <Button
-                      variant='danger'
-                      className='btn-sm'
-                      onClick={() => deleteHandler(product._id)}
-                    >
-                      <FaTrash style={{ color: "white" }} />
+                    <Button className='btn-delete' onClick={() => deleteHandler(product._id)}>
+                      <FaTrash /> Delete
                     </Button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </Table>
-        </>
+        </div>
       )}
-    </>
+    </div>
   );
 };
 
