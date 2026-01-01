@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
-import { toast } from "react-toastify";
-import FormContainer from "../components/FormContainer";
-import Loader from "../components/Loader";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useLoginMutation } from "../slices/usersApiSlice";
-import { setCredentials } from "../slices/authSlice";
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Form, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import FormContainer from '../components/FormContainer';
+import Loader from '../components/Loader';
+import { setCredentials } from '../slices/authSlice';
+import { useLoginMutation } from '../slices/usersApiSlice';
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const LoginScreen = () => {
 
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
-  const redirect = searchParams.get("redirect") || "/";
+  const redirect = searchParams.get('redirect') || '/';
 
   useEffect(() => {
     if (userInfo) {
@@ -40,45 +40,47 @@ const LoginScreen = () => {
   };
   return (
     <FormContainer>
-      <h1>Sign In</h1>
-      <Form onSubmit={submitHandler}>
-        <Form.Group controlId='email' className='my-3'>
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
-            type='email'
-            placeholder='Enter your email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group controlId='password' className='my-3'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Enter your password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-        <Button
-          type='submit'
-          variant='primary'
-          className='mt-2'
-          disabled={isLoading}
-        >
-          Sign In
-        </Button>
+      <div className='login-form-wrapper'>
+        <div className='login-header'>
+          <h1 className='login-title'>Welcome to ByteBazaar</h1>
+          <p className='login-subtitle'>Sign in to your account</p>
+        </div>
+        <Form onSubmit={submitHandler} className='login-form'>
+          <Form.Group controlId='email' className='form-group-custom'>
+            <Form.Label className='form-label'>Email Address</Form.Label>
+            <Form.Control
+              type='email'
+              placeholder='Enter your email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className='form-control-custom'
+            />
+          </Form.Group>
+          <Form.Group controlId='password' className='form-group-custom'>
+            <Form.Label className='form-label'>Password</Form.Label>
+            <Form.Control
+              type='password'
+              placeholder='Enter your password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className='form-control-custom'
+            />
+          </Form.Group>
+          <Button type='submit' className='login-button' disabled={isLoading}>
+            {isLoading ? 'Signing In...' : 'Sign In'}
+          </Button>
 
-        {isLoading && <Loader />}
-      </Form>
-      <Row className='py-3'>
-        <Col>
-          New Customer ?{" "}
-          <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
-            Register
-          </Link>
-        </Col>
-      </Row>
+          {isLoading && <Loader />}
+        </Form>
+        <div className='login-footer'>
+          <p className='login-register-text'>
+            New Customer?{' '}
+            <Link to={redirect ? `/register?redirect=${redirect}` : '/register'} className='register-link'>
+              Create an account
+            </Link>
+          </p>
+        </div>
+      </div>
     </FormContainer>
   );
 };
